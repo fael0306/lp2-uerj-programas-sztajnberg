@@ -1,54 +1,52 @@
 public class Funcionario {
+    protected String nome;
+    protected String cdemp;
+    protected float salario;
+    protected float salarioliq;
 
-	public String nome, cdemp;
-	public float salario;
-	public float salarioliq;
+    public Funcionario(String nome, String cdemp, float salario) {
+        this.nome = nome;
+        this.cdemp = cdemp;
+        this.salario = salario;
+        this.salarioliq = salario;  // inicializa com o salario bruto
+    }
 
-	public Funcionario(String nome, String cdemp, float salario) {
-		float salarioliq = salario;
-	}
+    // Calcula salario liquido aplicando um desconto percentual
+    public float calculaSalario(float descontoPercentual) {
+        this.salarioliq = this.salario * (1 - (descontoPercentual / 100));
+        return this.salarioliq;
+    }
 
-	public float calculaSalario(float desconto) {
+    // Getters e Setters
+    public String getNome() {
+        return nome;
+    }
 
-		salarioliq = salario * (1 - (desconto / 100));
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-		return salarioliq;
-	}
+    public String getCdemp() {
+        return cdemp;
+    }
 
-	//public String toString() {
-	//	return String.format("Nome: %s\nCódigo: %s\nSalário-base: %s", cdemp, salario);
-	//}
+    public void setCdemp(String cdemp) {
+        this.cdemp = cdemp;
+    }
 
-	public String getCdemp() {
-		return cdemp;
-	}
+    public float getSalario() {
+        return salario;
+    }
 
-	public void setCdemp(String cdemp) {
-		this.cdemp = cdemp;
-	}
+    public void setSalario(float salario) {
+        this.salario = salario;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public float getSalarioliq() {
+        return salarioliq;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public float getSalarioliq() {
-		return salarioliq;
-	}
-
-	public void setSalarioliq(float salarioliq) {
-		this.salarioliq = salarioliq;
-	}
-
-	public float getSalario() {
-		return salario;
-	}
-
-	public void setSalario(float salario) {
-		this.salario = salario;
-	}
-
+    public void setSalarioliq(float salarioliq) {
+        this.salarioliq = salarioliq;
+    }
 }

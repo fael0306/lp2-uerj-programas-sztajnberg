@@ -2,85 +2,55 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+    public static void main(String[] args) {
+        try (Scanner entrada = new Scanner(System.in)) {
+            System.out.println("Digite a quantidade de funcionarios que deseja cadastrar: ");
+            int qtd = Integer.parseInt(entrada.nextLine());
+            ArrayList<Funcionario> funcList = new ArrayList<>(qtd);
 
-	public static void main(String[] args) {
+            for (int i = 0; i < qtd; i++) {
+                String ce;
+                System.out.println("Contratado ou Executivo (c ou e)? ");
+                ce = entrada.nextLine().trim().toLowerCase();
 
-		String ce;
-		String nomeemp;
-		String codigo;
-		float salario;
-		int dep;
-		int qtd;
-		float grat;
+                while (!ce.equals("c") && !ce.equals("e")) {
+                    System.out.println("Contratado ou Executivo (c ou e)? Digite c ou e.");
+                    ce = entrada.nextLine().trim().toLowerCase();
+                }
 
-		try {
-			Scanner entrada = new Scanner(System.in);
-			System.out.println("Digite a quantidade de funcionários que deseja cadastrar: ");
-			qtd = Integer.parseInt(entrada.nextLine());
-			ArrayList funcList = new ArrayList(qtd);
-			for (int i = 0; i < qtd; i++) {
+                System.out.println("Nome do empregado: ");
+                String nomeemp = entrada.nextLine();
 
-				Scanner entrada2 = new Scanner(System.in);
-				System.out.println("Contratado ou Executivo (c ou e)? ");
-				ce = entrada2.nextLine();
+                System.out.println("Codigo: ");
+                String codigo = entrada.nextLine();
 
-				while (ce.equals("e")==false && ce.equals("c")==false) {
-					System.out.println("Contratado ou Executivo (c ou e)?\nDigite c ou e.\n");
-					ce = entrada2.nextLine();
-				}
-				if (ce.equals("c") || ce.equals("C")) {
-					Scanner nomeemp2 = new Scanner(System.in);
-					System.out.println("\nNome do empregado: ");
-					nomeemp = nomeemp2.nextLine();
+                System.out.println("Salario: ");
+                float salario = Float.parseFloat(entrada.nextLine());
 
-					Scanner codigo2 = new Scanner(System.in);
-					System.out.println("\nCódigo: ");
-					codigo = codigo2.nextLine();
+                System.out.println("Numero de dependentes: ");
+                int dep = Integer.parseInt(entrada.nextLine());
 
-					Scanner salario2 = new Scanner(System.in);
-					System.out.println("\nSalário: ");
-					salario = Float.parseFloat(salario2.nextLine());
+                if (ce.equals("c")) {
+                    FuncCntrd funccntrd = new FuncCntrd(nomeemp, codigo, salario, dep);
+                    funcList.add(funccntrd);
+                } else {
+                    System.out.println("Gratificacao: ");
+                    float grat = Float.parseFloat(entrada.nextLine());
+                    FuncExct funcexct = new FuncExct(nomeemp, codigo, salario, dep, grat);
+                    funcList.add(funcexct);
+                }
+            }
 
-					Scanner dep2 = new Scanner(System.in);
-					System.out.println("\nNúmero de dependentes: ");
-					dep = Integer.parseInt(dep2.nextLine());
+            System.out.println("\n--- Relatorio dos Funcionarios ---\n");
+            for (Funcionario f : funcList) {
+                System.out.println(f.toString());
+                System.out.println("-----------------------------");
+            }
 
-					FuncCntrd funccntrd = new FuncCntrd(nomeemp, codigo, salario, dep);
-					funcList.add(i,funccntrd);
-				}
-				if (ce.equals("e") || ce.equals("E")) {
-					Scanner nomeemp2 = new Scanner(System.in);
-					System.out.println("\nNome do empregado: ");
-					nomeemp = nomeemp2.nextLine();
-
-					Scanner codigo2 = new Scanner(System.in);
-					System.out.println("Código: ");
-					codigo = codigo2.nextLine();
-
-					Scanner salario2 = new Scanner(System.in);
-					System.out.println("Salário: ");
-					salario = Float.parseFloat(salario2.nextLine());
-
-					Scanner grat2 = new Scanner(System.in);
-					System.out.println("Gratificação: ");
-					grat = Float.parseFloat(grat2.nextLine());
-
-					Scanner dep2 = new Scanner(System.in);
-					System.out.println("Número de dependentes: ");
-					dep = Integer.parseInt(dep2.nextLine());
-
-					FuncExct funcexct = new FuncExct(nomeemp, codigo, salario, dep, grat);
-					funcList.add(i,funcexct);
-				}
-
-			}
-
-			for (int contador = 0; contador < qtd; contador++) {
-				System.out.println(funcList.get(contador).toString());
-			}
-
-		} catch (NumberFormatException e) {
-			System.out.println("Entrada inválida. Você precisa digitar um número.");
-		}
-	}
+        } catch (NumberFormatException e) {
+            System.out.println("Entrada invalida. Voce precisa digitar um numero.");
+        } catch (Exception e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
+    }
 }

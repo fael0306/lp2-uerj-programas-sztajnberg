@@ -1,25 +1,31 @@
-
 public class FuncExct extends FuncCntrd {
+    private float grat;
 
-	private float grat;
+    public FuncExct(String nome, String cdemp, float salario, int dependentes, float grat) {
+        super(nome, cdemp, salario, dependentes);
+        this.grat = grat;
+    }
 
-	public FuncExct(String nome, String cdemp, float salario, int dependentes, float grat) {
-		super(nome, cdemp, salario, dependentes);
+    // Executivo: salario liquido = (salario base - IR) + gratificacao
+    // Obs.: nao recebe salario-familia (ignora dependentes)
+    @Override
+    public float calculaSalario() {
+        float salarioAposIR = this.salario * (1 - (aliquotaIR / 100));
+        this.salarioliq = salarioAposIR + this.grat;
+        return this.salarioliq;
+    }
 
-		// TODO Auto-generated constructor stub
-	}
+    public float getGrat() {
+        return grat;
+    }
 
-	public float calculaSalario() {
+    public void setGrat(float grat) {
+        this.grat = grat;
+    }
 
-		float salarioliq;
-
-		salarioliq = super.calculaSalario(aliquotaIR) + grat;
-
-		return salarioliq;
-	}
-
-	public String toString() {
-    	return String.format("Nome: %s\nCódigo: %s\nSalário-base: %.2f\nSalário-líquido: %.2f\nGratificação: %.2f",
-            super.getNome(), super.getCdemp(), super.getSalario(), calculaSalario(), grat);
-}
+    @Override
+    public String toString() {
+        return String.format("Nome: %s\nCodigo: %s\nSalario-base: %.2f\nGratificacao: %.2f\nSalario-liquido: %.2f",
+                this.nome, this.cdemp, this.salario, this.grat, this.calculaSalario());
+    }
 }
