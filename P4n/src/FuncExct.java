@@ -19,7 +19,7 @@ public class FuncExct extends FuncCntrd {
 	}
 
 	public String toString() {
-		return String.format("Nome: %s\nCÛdigo: %s*\nSal·rio-base: %s\nSal·rio-lÌquido: %s\nGratificaÁ„o: %s", super.getNome(),
-				super.getCdemp(), calculaSalario(), grat);
-	}
+    	return String.format("Nome: %s\nC√≥digo: %s\nSal√°rio-base: %.2f\nSal√°rio-l√≠quido: %.2f\nGratifica√ß√£o: %.2f",
+            super.getNome(), super.getCdemp(), super.getSalario(), calculaSalario(), grat);
+}
 }
